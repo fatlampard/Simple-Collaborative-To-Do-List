@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="css/index.css">
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
+	<script src="js/jquery-2.0.3.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script src="js/main.js"></script>
+</head>
+<body>
+	<div class="instruction">
+	type to add list<br>
+	drap the contact to list to assign task
+	</div>
+	<div class="panel panel-root panel-target">
+		<div class="lists-title">
+			<span>All Lists</span>
+		</div>
+		<ul class="lists-wrapper list-sortable">
+			<li class="list"><span>Revise the font color</span></li>
+			<li class="list"><span>Change the mic icon</span></li>
+			<li class="list"><span>Auto sync not working</span></li>
+			<li class="list list-template">
+				<span></span>
+				<div class="list-funcs">
+					<span class="list-func list-func-check">
+						<i class="list-func-icon icon-check"></i><span class="list-func-text">check</span>
+					</span>
+					<span class="list-func list-func-uncheck">
+						<i class="list-func-icon icon-check"></i><span class="list-func-text">uncheck</span>
+					</span>
+					<span class="list-func list-func-detail">
+						<i class="list-func-icon icon-item"></i><span class="list-func-text">items</span>
+					</span>
+					<span class="list-func list-func-edit">
+						<i class="list-func-icon icon-edit"></i><span class="list-func-text">edit</span>
+					</span>
+					<span class="list-func list-func-delete">
+						<i class="list-func-icon icon-delete"></i><span class="list-func-text">delete</span>
+					</span>
+					<span class="list-func list-func-clean">
+						<i class="list-func-icon icon-clean"></i><span class="list-func-text">clean</span>
+					</span>
+
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="contacts-wrapper">
+		<ul class="contacts-list">
+			<li class="contact">
+				<div class="contacts-tn" draggable="true" data-name="ANDY" data-uid="1" style="background-image:url(avatar/avatar1.jpg)"></div>
+				<span class="contacts-name">ANDY</span>
+			</li>
+			<li class="contact">
+				<div class="contacts-tn" draggable="true" data-name="BERRY" data-uid="2" style="background-image:url(avatar/avatar2.jpg)"></div>
+				<span class="contacts-name">BERRY</span>
+			</li>
+			<li class="contact">
+				<div class="contacts-tn" draggable="true" data-name="CARRIE" data-uid="3" style="background-image:url(avatar/avatar3.jpg)"></div>
+				<span class="contacts-name">CARRIE</span>
+			</li>
+			<li class="contact">
+				<div class="contacts-tn" draggable="true" data-name="DON" data-uid="4" style="background-image:url(avatar/avatar4.jpg)"></div>
+				<span class="contacts-name">DON</span>
+			</li>
+			<li class="contact">
+				<div class="contacts-tn" draggable="true" data-name="ETHON" data-uid="5" style="background-image:url(avatar/avatar5.jpg)"></div>
+				<span class="contacts-name">ETHON</span>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

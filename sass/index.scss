@@ -1,0 +1,584 @@
+@import "compass/reset";
+@import "compass/css3";
+$icon-padding:4px;
+@import "icon/*.png";
+@include all-icon-sprites;
+
+$listsColor:#005951;
+$listColor:#00897c;
+$listFontColor:white;
+$listColorFocus:darken(#00897c,5%);
+$listColorDisabled:darken(#00897c,15%);
+$listFuncColor:white;
+$itemColor:#00e2cf;
+$itemFontColor:white;
+$itemColorFocus:#00c2b7;
+$itemColorDisabled:darken(#00e2cf,30%);
+$itemFuncColor:white;
+$panelBackground: darken($listsColor,20%);
+
+body{
+	position: relative;
+	font-family: 'Ubuntu', sans-serif;
+	background-color: $itemColor;
+}
+.instruction{
+	position: relative;
+	top: 10px;
+	left: 50%;
+	margin-left: -160px;
+	width: 320px;
+	text-align: center;
+	font-size: 12px;
+	color: white;
+}
+.panel{
+	width: 320px;
+	height: 480px;
+	overflow: hidden;
+	margin: auto;
+	margin-top: 50px;
+	opacity: 0.5;
+	background-color: $panelBackground;
+	border-radius: 4px;
+}
+.panel-target{
+	opacity: 1;
+	box-shadow: 1px 1px 0px $panelBackground,2px 2px 0px $panelBackground,
+	3px 3px 0px $panelBackground,4px 4px 0px $panelBackground,5px 5px 0px $panelBackground,
+	6px 6px 0px $panelBackground,7px 7px 0px $panelBackground,8px 8px 0px $panelBackground
+}
+/*Level1*/
+.lists-title{
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 48px;
+	box-sizing:border-box;
+	background-color: $listsColor;
+	border-top: 1px solid rgba(white,0.2);
+	border-bottom: 2px solid rgba(black,0.5);
+	border-radius: 4px;
+	span{
+		display: inline-block;
+		width: 100%;
+		line-height: 45px;
+		font-size: 18px;
+		text-align: center;
+		vertical-align: middle;
+		color: $listFontColor;
+	}
+}
+.lists-wrapper{
+	width: 100%;
+	height: 480px;
+	overflow: hidden;
+	background-color: #333;
+	border-radius: 0 0 4px 4px;
+}
+
+.list{
+	position: relative;
+	display: block;
+	width: 100%;
+	background-color: $listColor;
+	border-top: 1px solid rgba(white,0.2);
+	border-bottom: 1px solid rgba(black,0.05);
+	overflow: visible;
+	cursor:grab;
+	cursor:-moz-grab;
+	cursor:-webkit-grab;
+	>span{
+		display: block;
+		width: 280px;
+		padding: 15px 5px;
+		@include box-sizing(border-box);
+		color: $listFontColor;
+		font-size: 16px;
+	}
+	&.listContactDragOver{
+		background-color: $listColorFocus;
+	}
+	>textarea{
+		display: block;
+		@include box-sizing(border-box);
+		padding: 14px 5px;
+		width: 100%;
+		height: 46px;
+		background-color: $listColor;
+		color: $listFontColor;
+		font-family: 'Ubuntu', sans-serif;
+		font-size: 16px;
+		border: 0;
+		resize: none;
+	}
+	>textarea:focus{
+		outline: none;
+	}
+}
+.lists-wrapper-editing ~ .lists-title{
+		background-color: darken($listsColor,20%);
+		>span{
+			color: darken($listFontColor,30%);
+		}
+	}
+.lists-wrapper-editing{
+	.list{
+		background-color: darken($listColor,20%);
+		>span{
+			color: darken($listFontColor,30%);
+		}
+	}
+	.list-editing{
+		background-color: $listColor;
+		>span{
+			color: $listFontColor;
+		}
+	}
+}
+.lists-wrapper .ui-sortable-placeholder{
+	visibility: visible !important;
+	background-color: $listColorDisabled;
+}
+.list-dragging{
+	border: 0;
+	//box-shadow: black 0 0 10px;
+	cursor:grabbing;
+	cursor:-moz-grabbing;
+	cursor:-webkit-grabbing;
+	box-shadow: 1px 1px 0px $panelBackground,2px 2px 0px $panelBackground,
+	3px 3px 0px $panelBackground,4px 4px 0px $panelBackground;
+}
+.list-checked{
+	background-color: $listColorDisabled;
+	>span{
+		text-decoration: line-through;
+		opacity: 0.3;
+	}
+	.list-co-contacts{
+		opacity: 0.3;
+	}
+	.list-func:first-child{
+		display: none;
+	}
+	.list-func:nth-child(2){
+		display: inline-block;
+	}
+}
+.list-template{
+	display: none;
+}
+.list-co-contacts{
+	position: absolute;
+	//top: 4px;
+	top: 50%;
+	margin-top: -18px;
+	right: 4px;
+	display: block;
+	width: 40px;
+	float: left;
+}
+.list-co-contact{
+	display: block;
+	float: right;
+	width: 16px;
+	height: 16px;
+	margin-left: 2px;
+	margin-bottom: 2px;
+	border-radius: 50%;
+	background-color: #333;
+	background-size: cover;
+	cursor: pointer;
+	@include transition-property(width,height); 
+	@include transition-duration(0.1s); 
+	@include transition-timing-function(ease-in);
+	span.co-text{
+		width: 280px;
+	}
+	&:hover i{
+		display: inline-block;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(red,0.7);
+		border-radius: 50%;
+		@include icon-sprite(cancel-small);
+	}
+}
+.list-co-contact:only-child{
+	width: 36px;
+	height: 36px;
+	&:hover i{
+		background-color: rgba(red,0.7);
+		@include icon-sprite(cancel);
+	}
+}
+.list-funcs{
+	opacity:0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 320px;
+	height: 100%;
+	padding: 4px 0 4px 4px;
+	@include box-sizing(border-box);
+	background-color: rgba(darken($listColorFocus,15%),0.7);
+	@include transition-property(opacity); 
+	@include transition-duration(0.1s); 
+	@include transition-timing-function(ease-in);
+	.list:hover &{
+		opacity:1;
+	}
+	.list-dragging &{
+		display: none;
+	}
+	.list-checked &{
+		background-color: rgba(darken($listColorDisabled,5%),0.7);
+	}
+}
+.list-func{
+	position: absolute;
+	top: 50%;
+	display: inline-block;
+	min-width: 40px;
+	height: 40px;
+	margin-top: -20px;
+	cursor: pointer;
+	&:hover .list-func-text{
+		opacity:1;
+		top: 24px;
+	}
+}
+.list-func:first-child{
+	left:10px;
+}
+.list-func:nth-child(2){
+	left:10px;
+	display: none;
+	i{
+		opacity: 0.6
+	}
+}
+.list-func:nth-child(3){
+	left:60px;
+}
+.list-func:nth-child(4){
+	left:110px;
+}
+.list-func:nth-child(5){
+	left:160px;
+}
+.list-func:nth-child(6){
+	display: none;
+	left:210px;
+	.list-checked &{
+		display: inline-block;
+	}
+}
+.list-func-icon{
+	position: relative;
+	display: inline-block;
+	width: 36px;
+	height: 36px;
+	line-height: 36px;
+	vertical-align: middle;
+	background-color: $listFuncColor;
+	border-radius: 50%;
+	//box-shadow: black 0 0 6px;
+	border: 2px solid darken($listColorFocus,20%);
+}
+.list-func-text{
+	opacity: 0;
+	position: absolute;
+	top: 28px;
+	left: -2px;
+	display: inline-block;
+	@include box-sizing(border-box);
+	width: 40px;
+	padding: 2px;
+	font-size: 12px;
+	text-align: center;
+	color: white;
+	background-color: rgba(black,0.7);
+	border-radius: 2px;
+	@include transition-property(opacity,top); 
+	@include transition-duration(0.1s); 
+	@include transition-timing-function(ease-in);
+}
+/*Level2*/
+.list-title{
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 48px;
+	box-sizing:border-box;
+	background-color: $listColor;
+	border-top: 1px solid rgba(white,0.2);
+	border-bottom: 2px solid rgba(black,0.5);
+	border-radius: 4px;
+	span{
+		display: inline-block;
+		width: 100%;
+		line-height: 45px;
+		font-size: 18px;
+		text-align: center;
+		vertical-align: middle;
+		color: $listFontColor;
+	}
+}
+.items-wrapper{
+	width: 100%;
+	height: 480px;
+	overflow: hidden;
+	background-color: #333;
+}
+.item{
+	position: relative;
+	display: block;
+	width: 100%;
+	background-color: $itemColor;
+	border-top: 1px solid rgba(white,0.2);
+	border-bottom: 1px solid rgba(black,0.05);
+	overflow: visible;
+	cursor:grab;
+	cursor:-moz-grab;
+	cursor:-webkit-grab;
+	>span{
+		display: block;
+		width: 280px;
+		padding: 15px 5px;
+		@include box-sizing(border-box);
+		color: $itemFontColor;
+		font-size: 16px;
+	}
+	&.itemContactDragOver{
+		background-color: $itemColorFocus;
+	}
+	>textarea{
+		display: block;
+		@include box-sizing(border-box);
+		padding: 14px 5px;
+		width: 100%;
+		height: 46px;
+		background-color: $itemColor;
+		color: $itemFontColor;
+		font-size: 16px;
+		border: 0;
+		resize: none;
+	}
+	>textarea:focus{
+		outline: none;
+	}
+}
+.items-wrapper-editing{
+	.item{
+		background-color: darken($itemColor,10%);
+		>span{
+			color: darken($itemFontColor,10%);
+		}
+	}
+	.item.editing{
+		background-color: $itemColor;
+		>span{
+			color: $itemFontColor;
+		}
+	}
+}
+.items-wrapper .ui-sortable-placeholder{
+	visibility: visible !important;
+	background-color: $itemColorDisabled;
+}
+.item-dragging{
+	border: 0;
+	box-shadow: black 0 0 10px;
+	cursor:grabbing;
+	cursor:-moz-grabbing;
+	cursor:-webkit-grabbing;
+}
+.item-checked{
+	background-color: $itemColorDisabled;
+	>span{
+		text-decoration: line-through;
+		opacity: 0.3;
+	}
+	.item-co-contacts{
+		opacity: 0.3;
+	}
+	.item-func:first-child{
+		display: none;
+	}
+	.item-func:nth-child(2){
+		display: inline-block;
+	}
+}
+.item-template{
+	display: none;
+}
+.item-co-contacts{
+	position: absolute;
+	//top: 4px;
+	top: 50%;
+	margin-top: -18px;
+	right: 4px;
+	display: block;
+	width: 40px;
+	float: left;
+}
+.item-co-contact{
+	display: block;
+	float: right;
+	width: 16px;
+	height: 16px;
+	margin-left: 2px;
+	margin-bottom: 2px;
+	border-radius: 50%;
+	background-color: #333;
+	background-size: cover;
+	cursor: pointer;
+	@include transition-property(width,height); 
+	@include transition-duration(0.1s); 
+	@include transition-timing-function(ease-in);
+	span.co-text{
+		width: 280px;
+	}
+	&:hover i{
+		display: inline-block;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(red,0.7);
+		border-radius: 50%;
+		@include icon-sprite(cancel-small);
+	}
+}
+.item-co-contact:only-child{
+	width: 36px;
+	height: 36px;
+	&:hover i{
+		background-color: rgba(red,0.7);
+		@include icon-sprite(cancel);
+	}
+}
+.item-funcs{
+	opacity:0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 320px;
+	height: 100%;
+	padding: 4px 0 4px 4px;
+	@include box-sizing(border-box);
+	background-color: rgba(darken($itemColorFocus,15%),0.7);
+	@include transition-property(opacity); 
+	@include transition-duration(0.1s); 
+	@include transition-timing-function(ease-in);
+	.item:hover &{
+		opacity:1;
+	}
+	.item-dragging &{
+		display: none;
+	}
+	.item-checked &{
+		background-color: rgba(darken($itemColorDisabled,5%),0.7);
+	}
+}
+.item-func{
+	position: absolute;
+	top: 50%;
+	display: inline-block;
+	min-width: 40px;
+	height: 40px;
+	margin-top: -20px;
+	cursor: pointer;
+	&:hover .item-func-text{
+		opacity:1;
+		top: 24px;
+	}
+}
+.item-func:first-child{
+	left:10px;
+}
+.item-func:nth-child(2){
+	left:10px;
+	display: none;
+	i{
+		opacity: 0.6
+	}
+}
+.item-func:nth-child(3){
+	left:60px;
+}
+.item-func:nth-child(4){
+	left:110px;
+}
+.item-func:nth-child(5){
+	left:160px;
+}
+.item-func:nth-child(6){
+	display: none;
+	left:210px;
+	.item-checked &{
+		display: inline-block;
+	}
+}
+.item-func-icon{
+	position: relative;
+	display: inline-block;
+	width: 36px;
+	height: 36px;
+	line-height: 36px;
+	vertical-align: middle;
+	background-color: $itemFuncColor;
+	border-radius: 50%;
+	//box-shadow: black 0 0 6px;
+	border: 2px solid darken($itemColorFocus,20%);
+}
+.item-func-text{
+	opacity: 0;
+	position: absolute;
+	top: 28px;
+	left: -2px;
+	display: inline-block;
+	@include box-sizing(border-box);
+	width: 40px;
+	padding: 2px;
+	font-size: 12px;
+	text-align: center;
+	color: white;
+	background-color: rgba(black,0.7);
+	border-radius: 2px;
+	@include transition-property(opacity,top); 
+	@include transition-duration(0.1s); 
+	@include transition-timing-function(ease-in);
+}
+/* Contact List */
+.contacts-wrapper{
+	position: absolute;
+	left: 50%;
+ 	top: 120px;
+ 	margin-left: 190px;
+	width: 200px;
+	height: 100%;
+	padding: 5px;
+}
+.contact{
+	position: relative;
+	margin-bottom: 7px;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	box-shadow: 1px 1px 0px $panelBackground,2px 2px 0px $panelBackground,
+	3px 3px 0px $panelBackground,4px 4px 0px $panelBackground;
+}
+.contacts-tn{
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	vertical-align: middle;
+	border-radius: 50%;
+	background-color: #ccc;
+	background-size: cover;
+	cursor: pointer;
+}
+.contacts-name{
+	display: none;
+	margin-left: 5px;
+}
