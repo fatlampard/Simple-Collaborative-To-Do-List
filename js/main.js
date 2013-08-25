@@ -187,7 +187,7 @@ $(function(){
 		targetList.on('dragover',listContactDragOver);
 		targetList.on('dragleave',listContactDragLeave);
 		targetList.on('drop',listContactDrop);
-		targetList.siblings('.list-template').children('.list-funcs').clone(true).prependTo(targetList);
+		targetList.siblings('.list-template').children('.list-funcs').clone(true).appendTo(targetList);
 	}
 	function unbindListEvents(targetList){
 		targetList.unbind('dragenter');
